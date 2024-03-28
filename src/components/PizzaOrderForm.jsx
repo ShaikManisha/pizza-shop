@@ -18,7 +18,7 @@ const PizzaOrderForm = () => {
   const handleOrder = () => {
     const { type, size, base } = order;
     if (type.trim() !== "" && size.trim() !== "" && base.trim() !== "") {
-      if (orders?.length <= 9) {
+      if (orders?.length < 10) {
         const newOrder = { ...order, stage: "Order Placed", timeSpent: 0 };
         dispatch(addPizzaOrder(newOrder));
         setOrder({ type: "", size: "", base: "" });

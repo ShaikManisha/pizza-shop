@@ -16,8 +16,13 @@ const PizzaCard = ({ order }) => {
       setElapsedTime(elapsedTimeInSeconds);
     }, 1000);
 
+    // Clear the interval if the order stage is "Order Picked"
+    if (order.stage === "Order Picked") {
+      clearInterval(timerId);
+    }
+
     return () => clearInterval(timerId);
-  }, [startTime]);
+  }, [startTime, order.stage]);
 
   useEffect(() => {
     const timeLimit = getTimeLimit(order.size);
@@ -62,7 +67,7 @@ const PizzaCard = ({ order }) => {
         className={`bg-white hover:bg-slate-300 text-black font-bold py-2 px-4 rounded border border-black ${
           order.stage === "Order Picked" ? "opacity-50 cursor-not-allowed" : ""
         }`}>
-        Next
+        {order.stage === "Order Picked" ? "Picked" : "Next"}
       </button>
     </div>
   );
